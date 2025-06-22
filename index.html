@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmFlow: İş ve Proje Takip Yazılımı</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <span class="logo-emoji">🌾</span> FarmFlow 
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙 Gece Modu</button>
+        </div>
+
+        <div class="section-card">
+            <h2>✨ Yeni Proje Ekle</h2>
+            <form id="projectForm">
+                <div class="form-group">
+                    <label for="projectName">Proje Adı:</label>
+                    <input type="text" id="projectName" placeholder="Örn: Buğday Hasadı 2025" required>
+                </div>
+                <div class="form-group">
+                    <label for="projectDescription">Açıklama:</label>
+                    <textarea id="projectDescription" placeholder="Proje ile ilgili detaylar..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="projectStatus">Durum:</label>
+                    <select id="projectStatus">
+                        <option value="planning">Planlama</option>
+                        <option value="in-progress">Devam Ediyor</option>
+                        <option value="completed">Tamamlandı</option>
+                        <option value="on-hold">Beklemede</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="projectStartDate">Başlangıç Tarihi:</label>
+                    <input type="date" id="projectStartDate">
+                </div>
+                <div class="form-group">
+                    <label for="projectEndDate">Bitiş Tarihi:</label>
+                    <input type="date" id="projectEndDate">
+                </div>
+                <button type="submit" class="btn">Proje Ekle</button>
+            </form>
+        </div>
+
+        <div class="section-card">
+            <h2>📁 Dosya İşlemleri</h2>
+            <div class="file-operations-buttons">
+                <label class="btn-file-upload" for="importFile">
+                    <i class="fas fa-file-import"></i> Projeleri İçe Aktar (.ff)
+                </label>
+                <input type="file" id="importFile" class="file-input" accept=".ff" multiple onchange="handleImport(this)">
+                
+                <button class="btn-file-download" onclick="exportAllProjects()">
+                    <i class="fas fa-file-export"></i> Tüm Projeleri Dışa Aktar
+                </button>
+            </div>
+            <p class="info-text">
+                💡 Yeni projeler otomatik olarak **.ff** dosyası olarak indirilir. İçe aktarırken hem tekil proje hem de toplu yedekleme dosyalarını **aynı anda birden fazla** seçerek kullanabilirsiniz.
+            </p>
+        </div>
+
+        <div class="section-card">
+            <h2>🔍 Projeleri Bul</h2>
+            <div class="filter-section">
+                <div class="form-group">
+                    <label for="searchProjectName">Proje Adı:</label>
+                    <input type="text" id="searchProjectName" placeholder="Proje adı ara..." onkeyup="filterProjects()">
+                </div>
+                <div class="form-group">
+                    <label for="filterProjectStatus">Durum:</label>
+                    <select id="filterProjectStatus" onchange="filterProjects()">
+                        <option value="all">Tümü</option>
+                        <option value="planning">Planlama</option>
+                        <option value="in-progress">Devam Ediyor</option>
+                        <option value="completed">Tamamlandı</option>
+                        <option value="on-hold">Beklemede</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="projectsContainer" class="projects-grid"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
